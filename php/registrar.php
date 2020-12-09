@@ -1,5 +1,5 @@
 <?php
-	require_once("conect.php");
+	require_once("conex.php");
 	$link = Conectarse();
 
 

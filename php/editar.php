@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Editar Registros Mysql</title>
+<title>Editar Registros </title>
 <link type="text/css" href="bootstrap.min.css" rel="stylesheet">
 <link type="text/css" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
 <style>
@@ -42,23 +42,44 @@ hr {
 <?php 
 include("conex.php");
 $id = $_GET['id'];
-select_id('tabla_demo','id',$id);
+$link=Conectarse();
+$usuario=array();
+	$query = "select * from usuarios where id=$id";
+	$result=mysql_query($query,$link);
+	while($row = mysql_fetch_object($result)){
+      
+        $usuario['id']=$row->id;
+        $usuario['nombre_usuario']=$row->nombre_usuario;
+        $usuario['clave_acceso']=$row->clave_acceso;
+        $usuario['origen']=$row->origen;
+        $usuario['nivel_usuario']=$row->nivel_usuario;
+    }
+
 ?>
-<form action="" method="post">
-	<input type="text" value="<?php echo $row->nombres;?>" name="nombre_usuario">
-    <input type="text" value="<?php echo $row->apellidos;?>" name="clave_acceso">
-    <input type="text" value="<?php echo $row->origen;?>" name="origen">
-    <input type="text" value="<?php echo $row->nivel_usuario;?>" name="nivel">
+<form action="editar.php?id=<?php echo $usuario['id']; ?>&nivel=1" method="post">
+    <input type="text" style="display:none;" value="<?php echo $usuario['id'];?>" name="id">
+    <input type="text" value="<?php echo $usuario['nombre_usuario'];?>" name="nombre_usuario">
+    <input type="text" value="<?php echo $usuario['clave_acceso'];?>" name="clave_acceso">
+    <input type="text" value="<?php echo $usuario['origen'];?>" name="origen">
+    <input type="text" value="<?php echo $usuario['nivel_usuario'];?>" name="nivel">
 	<input type="submit" name="submit">
 </form>
 
 <?php
 	
 	if(isset($_POST['submit'])){
-		$field = array("nombre_usuarip"=>$_POST['nombre_usuario'], "clave_acceso"=>$_POST['clave_acceso'],"origen"=>$_POST['origen'],"nivel"=>$_POST['nivel']);
-		$tbl = "usuarios";
-		edit($tbl,$field,'id',$id);
-		header("location:modificar_registros.php");
+        echo "modificar datos";
+       
+        $nombre = $_POST['nombre_usuario'];
+        $clave= $_POST['clave_acceso'];
+        $origen= $_POST['origen'];
+        $nivel= $_POST['nivel'];
+        $id= $usuario['id'];
+        
+        //$sql=" UPDATE usuarios SET nombre_usuario=".$nombre.",clave_acceso=".$clave.",origen=".$clave.",nivel_usuario=".$nivel." WHERE id=.$id";
+        $sql=" UPDATE usuarios SET nombre_usuario='$nombre', clave_acceso='$clave', origen='$origen', nivel_usuario='$nivel' WHERE ID = $id";
+        mysql_query($sql,$link);
+		header("location:modificar_registros.php?user=$nombre&accion='in'&nivel=1");
 	}
 ?>
 </div>

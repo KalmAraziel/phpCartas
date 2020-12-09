@@ -54,63 +54,51 @@ hr {
                     <a href=""><i class="fas fa-dice-d12"></i>Datos Personales</a>
                     <a href=""><i class="fas fa-dice-d12"></i>Servicios</a>
                     <a href=""><i class="fas fa-dice-d12"></i>Productos</a>
-                    <a href="ventas.php?id=<?php echo $_GET['idusuario']?>&nivel=<?php echo $_GET["nivel"]?>"><i class="fas fa-dice-d12"></i>ventas</a>
-                    <a href="ventas2.php?id=<?php echo $_GET['idusuario']?>&nivel=<?php echo $_GET["nivel"]?>"><i class="fas fa-dice-d12"></i>ventas 2</a>
-                    <a href="cerrar_sesion.php"><i class="fas fa-dice-d12"></i>cerrar sesion</a>
+                        <a href="cerrar_sesion.php"><i class="fas fa-dice-d12"></i>cerrar sesion</a>
                     </nav>
                 </div>
             </div> 
 <body>
 <div class="">
-<h1>Modificar Registros <?php echo $_GET["nivel"] ?> </h1>
+<h1>Generar Venta <?php echo $_GET["id"] ?> </h1>
 <br><br>
 <?php include("conex.php");?>
 <div class="row">
     <div class="col-12">
-    <?php
-        if ($_GET["nivel"]==1){
-        ?>
-        <a class="btn btn-primary" href="agregar.php?nivel=1">
-            <i class="fa fa-plus fa-lg" aria-hidden="true"></i>agregar usuarios</a>
-         <?php }
-         ?>
+    
     <table class="table" border:="1" width="100%">
 	<tr>
-		<th width="41%">Nombre usuario</th>
-        <th width="47%">Clave</th>
-        <th width="47%">Origen</th>
-        <th width="12%">Nivel</th>
-        <th width="47%">Opciones</th>
+		<th width="41%">Nombre</th>
+        <th width="47%">Descripcion</th>
+        <th width="47%">precio</th>
+        <th width="12%">cantidad</th>
 	</tr>
-<?php 
-$link=Conectarse();
-if ($_GET["nivel"]==1){
-    $query = "select * from usuarios";
-} else{
-    $iduser=$_GET["idusuario"];
-    $query = "select * from usuarios where id= $iduser";
-}
-	$result=mysql_query($query,$link);
-	while($row = mysql_fetch_object($result)){
-	?>
-	<tr>
-		<td><?php echo $row->nombre_usuario;?></td>
-        <td><?php echo $row->clave_acceso;?></td>
-        <td><?php echo $row->origen;?></td>
-        <td><?php echo $row->nivel_usuario;?></td>
-        <?php
-        if ($_GET["nivel"]==1){
-        ?>
-        
-        <td>
-            <a class="btn btn-primary" href="editar.php?id=<?php echo $row->id; ?>&nivel=1&user=<?php echo $row->nombre_usuario?>">
-            <i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
-            <a class="btn btn-danger" href="eliminar_registros.php?id=<?php echo $row->id; ?>&nivel=1&user=<?php echo $row->nombre_usuario?>">
-            <i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
-        </td>
-        <?php }
-         ?>
-	</tr>
+    <?php 
+        $link=Conectarse();
+
+        $query = "select * from productos";
+
+	    $result=mysql_query($query,$link);
+	    while($row = mysql_fetch_object($result)){
+	    ?>
+        <tr>
+            <td><?php echo $row->nombre_producto;?></td>
+            <td><?php echo $row->descripcion;?></td>
+            <td><?php echo $row->precio;?></td>
+            <td><?php echo $row->cantidad;?></td>
+            <?php
+            if ($_GET["nivel"]==1){
+            ?>
+            
+            <td>
+                <a class="btn btn-primary" href="editar.php?id=<?php echo $row->id; ?>&nivel=1&user=<?php echo $row->nombre_usuario?>">
+                <i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+                <a class="btn btn-danger" href="eliminar_registros.php?id=<?php echo $row->id; ?>&nivel=1&user=<?php echo $row->nombre_usuario?>">
+                <i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
+            </td>
+            <?php }
+            ?>
+        </tr>
     <?php
  } ?>
 </table>

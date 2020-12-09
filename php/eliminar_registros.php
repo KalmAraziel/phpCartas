@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title></title>
+<title>Editar Registros </title>
 <link type="text/css" href="bootstrap.min.css" rel="stylesheet">
 <link type="text/css" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
 <style>
@@ -20,7 +20,7 @@ th {
     color: white;
 }
 .main-wrapper{
-	width:98%;
+	width:50%;
 	
 	background:#E0E4E5;
 	border:1px solid #292929;
@@ -37,36 +37,47 @@ hr {
 
 <body>
 <div class="main-wrapper">
-<h1>Eliminar Registros</h1>
+<h1>Editar Registros  </h1>
 <br><br>
+<?php 
+include("conex.php");
+$id = $_GET['id'];
+$link=Conectarse();
+$usuario=array();
+	$query = "select * from usuarios where id=$id";
+	$result=mysql_query($query,$link);
+	while($row = mysql_fetch_object($result)){
+      
+        $usuario['id']=$row->id;
+        $usuario['nombre_usuario']=$row->nombre_usuario;
+        $usuario['clave_acceso']=$row->clave_acceso;
+        $usuario['origen']=$row->origen;
+        $usuario['nivel_usuario']=$row->nivel_usuario;
+    }
+
+?>
+<form action="eliminar_registros.php?id=<?php echo $usuario['id']; ?>&nivel=1" method="post">
+ <p>¿Desea eliminar la cuenta?</p>
+	<button type="submit" name="submit" class="btn btn-danger"> si</button>
+	<a>no</a>
+</form>
 
 <?php
-	include("conex.php");
+	
+	if(isset($_POST['submit'])){
+       
+        $nombre = $_POST['nombre_usuario'];
+        $clave= $_POST['clave_acceso'];
+        $origen= $_POST['origen'];
+        $nivel= $_POST['nivel'];
+        $id= $usuario['id'];
+        
+        //$sql=" UPDATE usuarios SET nombre_usuario=".$nombre.",clave_acceso=".$clave.",origen=".$clave.",nivel_usuario=".$nivel." WHERE id=.$id";
+        $sql=" DELETE FROM usuarios WHERE ID = $id";
+        mysql_query($sql,$link);
+		header("location:modificar_registros.php?user=$nombre&accion='in'&nivel=1");
+	}
 ?>
-<table border ="1" width="100%">
-	<tr>
-		<th width="41%">Nombre</th>
-        <th width="50%">clave</th>
-        <th width="50%">origen</th>
-		<th width="9%">nivel</th>
-	</tr>
-<?php 
-include (function.php)
-	$sql = "select * from usuarios";
-	$result = db_query($sql);
-	while($row = mysqli_fetch_object($result)){
-	?>
-	<tr>
-		<td><?php echo $row->nombres;?></td>
-        <td><?php echo $row->clave;?></td>
-        <td><?php echo $row->origen;?></td>
-        <td><?php echo $row->nivel;?></td>
-		<td>
-   <a class="btn btn-primary" href="borrar.php?id=<?php echo $row->id;?>"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a>
-        </td>
-	</tr>
-	<?php } ?>
-</table>
 </div>
 </body>
 </html>
