@@ -1,8 +1,8 @@
 
 
  <?php
- include(conex.php);
- include(registrar.php);
+ include(../php/conex.php);
+ include(../php/registrar.php);
  $link = conectarse();
  $usuario = $_POST['nombre_usuario'];
  print_r($usuario);
