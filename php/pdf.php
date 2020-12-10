@@ -30,10 +30,11 @@
             </div> 
 <body>
 
-<form method="get" action="gpdf.php">
-
-<input type="submit" value="generar pdf" />
-
+<form name='FORM_PDF_HISTPAC' method='post' action='gpdf.php' target='_blank'>
+		<input type='hidden' name='user' value='$user'>
+		<input type='hidden' name='accion' value='pdfhisttrans'>
+		<input type='submit' value='Generar PDF'>
+		</form>
 </form>
 
 </body>

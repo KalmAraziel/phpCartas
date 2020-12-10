@@ -54,9 +54,10 @@ hr {
                         <a href=""><i class="fas fa-dice-d12"></i>Datos Personales</a>
                         <a href=""><i class="fas fa-dice-d12"></i>Servicios</a>
                         <a href=""><i class="fas fa-dice-d12"></i>Productos</a>
-                        <a href="ventas.php?id=<?php echo $_GET['idusuario']?>&nivel=<?php echo $_GET["nivel"]?>"><i class="fas fa-dice-d12"></i>ventas</a>
-                        <a href="ventas2.php?id=<?php echo $_GET['idusuario']?>&nivel=<?php echo $_GET["nivel"]?>"><i class="fas fa-dice-d12"></i>ventas 2</a>
-                        <a href="cerrar_sesion.php"><i class="fas fa-dice-d12"></i>cerrar sesion</a>
+                        <a href="buscar.php"><i class="fas fa-dice-d12"></i>buscar</a>
+                        <a href="pdf.php"><i class="fas fa-dice-d12"></i>generar pdf</a>
+                        <a href="ventas2.php?id=<?php echo $_GET['idusuario']?>&nivel=<?php echo $_GET["nivel"]?>"><i class="fas fa-dice-d12"></i>ventas</a>
+                        <a href="login.php"><i class="fas fa-dice-d12"></i>cerrar sesion</a>
                     </nav>
                 </div>
             </div> 
