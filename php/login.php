@@ -1,17 +1,15 @@
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Formulario Login</title>
-    <link rel="stylesheet" href="../styles/style.css">
-    <link rel="stylesheet" href="../styles/estilos.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-
-    
-  </head>
-  <style type="text/css"></style>
+  	<head>
+    	<meta charset="utf-8">
+    	<title>Formulario Login</title>
+    	<link rel="stylesheet" href="../styles/style.css">
+    	<link rel="stylesheet" href="../styles/estilos.css">
+    	<link rel="stylesheet" href="../styles/main.css">
+    	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">    
+  	</head>
+  	<style type="text/css"></style>
     <div class="contenedor">
         <header class="header ">
             <div class="contenido-header">
@@ -28,31 +26,34 @@
                         <a href="login.php"><i class="fas fa-dice-d20"></i> Login </a>
                     </nav>
                 </div>
-            </div> 
-<body>
-<?php
-if (isset($_POST["user"]))
-{
-include("conex.php");
-include("registrar.php");
-$link=Conectarse();
-$user =$_POST["user"];
-$pass =$_POST["pass"];
-$query = "select * from usuarios where nombre_usuario='$user' and clave_acceso='$pass'";
-$result=mysql_query($query,$link);
-$existe=0;
-echo '<div class="msglogin">';
-while($row = mysql_fetch_array($result))
-{
-	$existe=1;
-	$id=$row['id'];
-	if($row['nivel_usuario'] == 1)
-	{
+			</div> 
+		</header>
+	</div>	
+			
+	<body>
+		<?php
+		if (isset($_POST["user"]))
+		{
+			include("conex.php");
+			include("registrar.php");
+			$user =$_POST["user"];
+			$pass =$_POST["pass"];
+			$query = "select * from usuarios where nombre_usuario='$user' and clave_acceso='$pass'";
+			$result=mysql_query($query,$link);
+			$existe=0;
+			echo '<div class="msglogin">';
+			while($row = mysql_fetch_array($result))
+			{
+				$existe=1;
+				$id=$row['id'];
+				if($row['nivel_usuario'] == 1)
+				{
+					$link=Conectarse();
 		
-		header("refresh:3; url=modificar_registros.php?user=$user&accion='in'&nivel=1&idusuario=$id");
-		echo "<p>Usuario de nivel 1 identificado.</p>";
-		echo "<p>redireccionando...</p>";
-		registrar($user,"Inicio de sesion usuario de nivel 1");
+					echo "<p>Usuario de nivel 1 identificado.</p>";
+					header("refresh:3; url=modificar_registros.php?user=$user&accion='in'&nivel=1&idusuario=$id");
+					registrar($user,"Inicio de sesion usuario de nivel 1");
+					echo "<p>redireccionando...</p>";
 
 	}elseif($row['nivel_usuario'] == 2)
 	{
@@ -70,25 +71,20 @@ if($existe == 0)
 echo "</div>";
 ?>
 <div class="login">
-	<h2>Portal de Usuario</h2>
-	<div class="formlog">
+	<section class="form-login">
+      	<h5>Iniciar Sesion</h5>
 		<form name="FormularioIngreso" method="post" action="login.php">
-			<div>
-				USUARIO<br>
-				<input type="text" name="user" placeholder="User" autofocus>
-			</div>
-			<div>
-				CLAVE<br>
-				<input type="password" name="pass" placeholder="Contrase&ntilde;a">
-			</div>
-			<input type="submit" value="LOGIN">
+
+				<input class="controls" type="text" name="user" placeholder="Usuario" autofocus>
+				<input class="controls" type="password" name="pass" placeholder="Contrase&ntilde;a">
+				<input class="buttons" type="submit" value="LOGIN">
+				<input class="buttons" type="button" name ="" value= "registrar">
 		</form>
-	</div>
+	</section>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </body>
-<script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-</script>
+</html>
 
 
 
