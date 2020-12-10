@@ -60,7 +60,8 @@ hr {
                     </nav>
                 </div>
             </div> 
-        </header>    
+        </header> 
+    </div>     
     <body>
 <div class="">
 <h1>Modificar Registros <?php echo $_GET["nivel"] ?> </h1>
