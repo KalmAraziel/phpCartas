@@ -32,47 +32,48 @@
         </header> 
     </div>     
 	<body>
-	    <h2>Buscar</h2><br><br>
+	<h2>buscar</h2><br><br>
 
-	    <div>
-	    <table><form method="post" action="buscar.php">
+	<div>
+	<table><form method="post" action="buscar.php">
 		<input type="hidden" name="user" value="$user">
 		<input type="hidden" name="accion" value="buscar">
-		<tr><th>Nombre</th><th>Direccion</th></tr>
+		<tr><th>Nombre</th><th>rut</th></tr>
 		<tr><td><input type="text" name="Bnombre"></td>
 		<td><input type="text" name="Bdirec"></td>
 		<td><input type="submit" value="buscar"></td></tr>
-	    </table></form>
-	    </div>
-	    <div>
-	    <table><form method="post" action="buscar.php">
+	</table></form>
+	</div>
+	<div>
+	<table><form method="post" action="buscar.php">
 		<input type="hidden" name="user" value="$user">
 		<input type="hidden" name="accion" value="agregar">
-		<tr><th>Nombre</th><th>Direccion</th></tr>
+		<tr><th>Nombre</th><th>rut</th></tr>
 		<tr><td><input type="text" name="Anombre" required></td>
 		<td><input type="text" name="Adirec" required></td>
 		<td><input type="submit" value="Agregar"></td></tr>
-	    </table></form>
-	    </div>
+	</table></form>
+	</div>
 
-        <?php
-	    include("conex.php");
-        $link=Conectarse();
-        $user =$_POST["user"];
-        $accion =$_POST["accion"];
+<?php
+	include("conex.php");
+	$link=Conectarse();
+	$user =$_POST["nombre"];
+	$accion =$_POST["accion"];
 
-        $meta = $_SERVER['REQUEST_METHOD'];
-        if($meta == 'GET'){
-        $user =$_GET["user"];
-        $accion =$_GET["accion"];
-        }else if($meta == 'POST'){
-        $user =$_POST["user"];
-        $accion =$_POST["accion"];
-        echo "<div id='resultado'><table><tr>
+	$meta = $_SERVER['REQUEST_METHOD'];
+	if($meta == 'GET'){
+	$user =$_GET["nombre"];
+	$accion =$_GET["accion"];
+	}else if($meta == 'POST'){
+	$user =$_POST["user"];
+	$accion =$_POST["accion"];
+	}
+	echo "<div id='resultado'><table><tr>
 			<th>Nombre</th>
-			<th>Direccion</th>
+			<th>rut</th>
 			</tr>";
-	    if($accion != "buscar"){
+	if($accion != "buscar"){
 		$query = "select * from datos_personales";
 		$resultado = mysql_query($query);
 		while($row = mysql_fetch_array($resultado)){
@@ -96,7 +97,7 @@
 			</tr>";
 		}
 		
-	    }else{
+	}else{
 		$query = "select * from datos_personales";
 		$pase = "0";
 		if (!empty($_POST["Bnombre"])){
@@ -111,7 +112,7 @@
 				$query .= " where ";
 			}
 			$Bdirec = $_POST["Bdirec"];
-			$query .= " direccion like'%$Bdirec%'";
+			$query .= " rut like'%$Bdirec%'";
 		}
 		$resultado = mysql_query($query);
 		while($row = mysql_fetch_array($resultado)){
@@ -134,11 +135,7 @@
 			</td>
 			</tr>";
 		}
-	    }
-        echo '
-        </div><br><a class="boton_aux" href="buscar.php?user=$user&accion=refrescar>target="_parent">Refrescar</a><';	
-        ?>
-        
-
-    </body>
-</html>
+	}
+	echo '</table></div><br><a class="boton_aux" href="buscar.php?user=$user&accion=refrescar>target="_parent">Refrescar</a>';	
+?>
+</body></html>

@@ -8,10 +8,8 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-<!-- Latest compiled and minified JavaScript -->
 </head>
 <div class="contenedor">
         <header class="header ">
@@ -120,7 +118,6 @@
 
 
 
-  <!-- ModalProducto(Agregar) -->
   <div class="modal fade" id="ModalProducto" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -175,7 +172,6 @@
   </div>
 
 
-  <!-- ModalFinFactura -->
   <div class="modal fade" id="ModalFinFactura" tabindex="-1" role="dialog">
     <div class="modal-dialog" style="max-width: 600px" role="document">
       <div class="modal-content">
@@ -195,7 +191,6 @@
   </div>
 
 
-  <!-- ModalConfirmarBorrar -->
   <div class="modal fade" id="ModalConfirmarBorrar" tabindex="-1" role="dialog">
     <div class="modal-dialog" style="max-width: 600px" role="document">
       <div class="modal-content">
@@ -225,30 +220,26 @@
 
       document.getElementById('Fecha').valueAsDate = new Date();
 
-      //Boton que muestra el diálogo de agregar producto
       $('#btnAgregarProducto').click(function() {
         LimpiarFormulario();
         $("#Cantidad").val("1");
         $("#ModalProducto").modal();
       });
 
-      //Boton que agrega el producto al detalle
       $('#btnConfirmarAgregarProducto').click(function() {
         RecolectarDatosFormulario();
         $("#ModalProducto").modal('hide');
-        if ($("#Cantidad").val() == "") { //Controlamos que no esté vacío la cantidad de productos
+        if ($("#Cantidad").val() == "") { 
           alert('no puede estar vacío la cantidad de productos.');
           return;
         }
         EnviarInformacionProducto("agregar");
       });
 
-      //Boton terminar factura
       $('#btnTerminarFactura').click(function() {
         $("#ModalFinFactura").modal();
       });
 
-      //Boton confirmar factura
       $('#btnConfirmarFactura').click(function() {
         if ($('#CodigoCliente').val() == 0) {
           alert('Debe seleccionar un cliente');
@@ -258,13 +249,11 @@
         EnviarInformacionFactura("confirmarfactura");
       });
 
-      //Boton que descarta la factura generada borrando tanto en la tabla de facturas como detallefactura
       $('#btnConfirmarDescartarFactura').click(function() {
         RecolectarDatosCliente();
         EnviarInformacionFactura("confirmardescartarfactura");
       });
 
-      //Boton confirmar factura y ademas genera pdf
       $('#btnConfirmarImprimirFactura').click(function() {
         if ($('#CodigoCliente').val() == 0) {
           alert('Debe seleccionar un cliente');
@@ -288,8 +277,6 @@
         };
       }
 
-      //Funciones AJAX para enviar y recuperar datos del servidor
-      //******************************************************* 
       function EnviarInformacionProducto(accion) {
         $.ajax({
           type: 'POST',
@@ -342,7 +329,6 @@
 
     });
 
-    //Se ejecuta cuando se presiona un boton de borrar un item del detalle
     var cod;
 
     function borrarItem(coddetalle) {
