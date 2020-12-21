@@ -51,12 +51,12 @@ hr {
                         <img src="../imagenes/WhatsApp Image 2020-09-14 at 00.25.28.jpeg" alt="Logo" width="200" height="150">
                     </a>
                     <nav id="navegacion" class="navegacion">
-                        <a href=""><i class="fas fa-dice-d12"></i>Datos Personales</a>
+                        <a href="datos_personales.php"><i class="fas fa-dice-d12"></i>Datos Personales</a>
                         <a href=""><i class="fas fa-dice-d12"></i>Servicios</a>
                         <a href=""><i class="fas fa-dice-d12"></i>Productos</a>
                         <a href="buscar.php"><i class="fas fa-dice-d12"></i>buscar</a>
                         <a href="pdf.php"><i class="fas fa-dice-d12"></i>generar pdf</a>
-                        <a href="ventas2.php?id=<?php echo $_GET['idusuario']?>&nivel=<?php echo $_GET["nivel"]?>"><i class="fas fa-dice-d12"></i>ventas</a>
+                        <a href="ventas2.php"><i class="fas fa-dice-d12"></i>ventas</a>
                         <a href="login.php"><i class="fas fa-dice-d12"></i>cerrar sesion</a>
                     </nav>
                 </div>
